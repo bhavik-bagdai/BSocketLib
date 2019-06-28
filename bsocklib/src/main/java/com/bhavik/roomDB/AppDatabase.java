@@ -26,6 +26,6 @@ public abstract class AppDatabase extends RoomDatabase {
         mInstance = null;
     }
 
-    public abstract DeviceInfoDAO deviceInfoDAO();
+    public abstract DeviceInfoDao deviceInfoDAO();
 
 }

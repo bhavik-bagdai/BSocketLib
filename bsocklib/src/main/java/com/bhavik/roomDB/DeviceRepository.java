@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class DeviceRepository {
-    DeviceInfoDAO branchDao;
+    DeviceInfoDao branchDao;
     long lastinsertedid;
     private LiveData<List<DeviceInfoEntity>> mAllData;
 

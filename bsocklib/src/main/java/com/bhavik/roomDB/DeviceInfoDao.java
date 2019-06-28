@@ -11,7 +11,7 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface DeviceInfoDAO {
+public interface DeviceInfoDao {
     @Query("SELECT * FROM DeviceInfoEntity WHERE devid = :id LIMIT 1")
     DeviceInfoEntity findAdminById(long  id);
 
