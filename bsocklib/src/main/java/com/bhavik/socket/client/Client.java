@@ -3,8 +3,8 @@ package com.bhavik.socket.client;
 import android.util.Log;
 
 import com.bhavik.socket.Ginterface.I_WS_Connections;
-import com.bhavik.socket.utils.GConfig;
-import com.bhavik.socket.utils.GUtils;
+import com.bhavik.socket.utils.Config;
+import com.bhavik.socket.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -62,22 +62,22 @@ public class Client extends Thread {
                 InetAddress serverAddr = InetAddress.getByName(ip);
 
                 // create a socket to make the connection with the server
-                final Socket socket = new Socket(serverAddr, GConfig.PORT);
+                final Socket socket = new Socket(serverAddr, Config.PORT);
 
                 socket.setKeepAlive(true);
                 try {
 
-                    if (GUtils.ARRAY_CONNECTED_SOCKET == null)
-                        GUtils.ARRAY_CONNECTED_SOCKET = new ArrayList<Socket>();
+                    if (Utils.ARRAY_CONNECTED_SOCKET == null)
+                        Utils.ARRAY_CONNECTED_SOCKET = new ArrayList<Socket>();
 
-                    for (int c = 0; c < GUtils.ARRAY_CONNECTED_SOCKET.size(); c++) {
-                        if (GUtils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
-                            GUtils.ARRAY_CONNECTED_SOCKET.remove(GUtils.ARRAY_CONNECTED_SOCKET.get(c));
+                    for (int c = 0; c < Utils.ARRAY_CONNECTED_SOCKET.size(); c++) {
+                        if (Utils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
+                            Utils.ARRAY_CONNECTED_SOCKET.remove(Utils.ARRAY_CONNECTED_SOCKET.get(c));
                         }
                     }
 
 
-                    GUtils.ARRAY_CONNECTED_SOCKET.add(socket);
+                    Utils.ARRAY_CONNECTED_SOCKET.add(socket);
 
 
                     // send the message to the server
@@ -153,10 +153,10 @@ public class Client extends Thread {
     private void disConnected(String ip) {
         mMessageListener.onDisconnect(ip);
 
-        if (GUtils.ARRAY_CONNECTED_SOCKET != null) {
-            for (int c = 0; c < GUtils.ARRAY_CONNECTED_SOCKET.size(); c++) {
-                if (GUtils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
-                    GUtils.ARRAY_CONNECTED_SOCKET.remove(c);
+        if (Utils.ARRAY_CONNECTED_SOCKET != null) {
+            for (int c = 0; c < Utils.ARRAY_CONNECTED_SOCKET.size(); c++) {
+                if (Utils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
+                    Utils.ARRAY_CONNECTED_SOCKET.remove(c);
                     break;
                 }
             }

@@ -8,7 +8,7 @@ import android.util.JsonReader;
 
 import com.bhavik.socket.Ginterface.I_WS_Connections;
 import com.bhavik.socket.client.ConnectOtherPOS;
-import com.bhavik.socket.utils.GConfig;
+import com.bhavik.socket.utils.Config;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -36,7 +36,7 @@ public class Server {
     }
 
     public int getPort() {
-        return GConfig.PORT;
+        return Config.PORT;
     }
 
   /*  public void onDestroy() {
@@ -61,7 +61,7 @@ public class Server {
         @Override
         public void run() {
             try {
-                ServerSocket serverSocket = new ServerSocket(GConfig.PORT);
+                ServerSocket serverSocket = new ServerSocket(Config.PORT);
                 while (true) {
                     final Socket socket = serverSocket.accept();
                     count++;
