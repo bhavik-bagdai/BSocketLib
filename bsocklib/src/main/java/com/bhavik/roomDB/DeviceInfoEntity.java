@@ -11,7 +11,7 @@ public class DeviceInfoEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
     long devid;
     @ColumnInfo(name = "Mac")
-    String Mac;
+    String mac;
     @ColumnInfo(name = "IP")
     String ip;
     @ColumnInfo(name = "Sync")
@@ -23,7 +23,7 @@ public class DeviceInfoEntity implements Serializable {
 
     public DeviceInfoEntity(long devid, String mac, String ip, String sync, String stationName, String deviceinfoStatus) {
         this.devid = devid;
-        Mac = mac;
+        this.mac = mac;
         this.ip = ip;
         this.sync = sync;
         this.stationName = stationName;
@@ -39,11 +39,11 @@ public class DeviceInfoEntity implements Serializable {
     }
 
     public String getMac() {
-        return Mac;
+        return mac;
     }
 
     public void setMac(String mac) {
-        Mac = mac;
+        this.mac = mac;
     }
 
     public String getIp() {
