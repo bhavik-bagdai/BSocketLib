@@ -39,11 +39,6 @@ public class SyncMasterRepository {
         return lastinsertedid;
     }
 
-    public List<SyncMasterEntity> getAllRData() {
-        List<SyncMasterEntity> getalldevice= syncMasterDao.getAllR();
-        return getalldevice;
-    }
-
     //Async task to add note
     public class DeviceAddEx extends AsyncTask<SyncMasterEntity, Long, Long> {
 
