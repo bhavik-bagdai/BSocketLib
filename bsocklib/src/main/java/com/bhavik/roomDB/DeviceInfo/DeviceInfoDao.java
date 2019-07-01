@@ -33,7 +33,7 @@ public interface DeviceInfoDao {
     @Query("SELECT * FROM DeviceInfoEntity")
     List<DeviceInfoEntity> getAllR();
 
-    @Query("Update DeviceInfoEntity set DeviceInfoStatus = :status ,  = :total where orderItemID= :OrderItemID")
+    @Query("Update DeviceInfoEntity set DeviceInfoStatus = :status, lastSyncDate = :dat  where IP = :ip")
     long update(String ip, String status, String dat);
 
     @Query("SELECT * FROM DeviceInfoEntity WHERE deviceType=1 or deviceType=2")
