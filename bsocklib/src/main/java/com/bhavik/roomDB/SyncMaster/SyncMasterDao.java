@@ -32,6 +32,4 @@ public interface SyncMasterDao {
     @Update
     void update(SyncMasterEntity syncMasterEntity);
 
-    @Query("SELECT * FROM SyncMasterEntity")
-    List<SyncMasterEntity> getAllR();
 }
