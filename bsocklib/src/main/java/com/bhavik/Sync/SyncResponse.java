@@ -22,9 +22,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 
-/**
- * The type Sync response.
- */
 public class SyncResponse {
 
     private static String[] params;
