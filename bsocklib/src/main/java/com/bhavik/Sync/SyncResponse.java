@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.bhavik.BsockOper.GeneralMethods;
-import com.bhavik.Sync.code.SyncCode;
 import com.bhavik.models.Response;
 import com.bhavik.models.SendData;
 import com.bhavik.models.SyncMaster;
@@ -21,11 +20,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-import fi.iki.elonen.NanoHTTPD;
 
 /**
  * The type Sync response.
