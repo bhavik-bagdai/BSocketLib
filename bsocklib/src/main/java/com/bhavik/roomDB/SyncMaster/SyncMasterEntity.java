@@ -17,7 +17,7 @@ public class SyncMasterEntity implements Serializable {
     @ColumnInfo(name = "batchCode")
     String batchCode;
     @ColumnInfo(name = "SyncDate")
-    String SyncDate;
+    String syncDate;
 
 
     public SyncMasterEntity(long synid, String ip, String syncCode, String batchCode, String syncDate) {
@@ -25,7 +25,7 @@ public class SyncMasterEntity implements Serializable {
         this.ip = ip;
         this.syncCode = syncCode;
         this.batchCode = batchCode;
-        SyncDate = syncDate;
+        this.syncDate = syncDate;
     }
 
     public long getSynid() {
@@ -61,10 +61,10 @@ public class SyncMasterEntity implements Serializable {
     }
 
     public String getSyncDate() {
-        return SyncDate;
+        return syncDate;
     }
 
     public void setSyncDate(String syncDate) {
-        SyncDate = syncDate;
+        this.syncDate = syncDate;
     }
 }
