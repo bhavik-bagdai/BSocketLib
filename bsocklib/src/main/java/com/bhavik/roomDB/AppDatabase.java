@@ -8,8 +8,9 @@ import android.content.Context;
 import com.bhavik.roomDB.DeviceInfo.DeviceInfoDao;
 import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
 import com.bhavik.roomDB.SyncMaster.SyncMasterDao;
+import com.bhavik.roomDB.SyncMaster.SyncMasterEntity;
 
-@Database(entities = {DeviceInfoEntity.class}, version = 1,exportSchema = false)
+@Database(entities = {DeviceInfoEntity.class, SyncMasterEntity.class}, version = 1,exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     //define static instance
     private static AppDatabase mInstance;
