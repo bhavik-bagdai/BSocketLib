@@ -37,7 +37,7 @@ public class SensorService extends Service {
         super.onCreate();
         Log.i(TAG, "onCreate()");
 
-        tc = new TimerCounter();
+        tc = new TimerCounter(ctx);
     }
 
     @Override

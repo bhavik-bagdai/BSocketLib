@@ -1,15 +1,10 @@
 package com.bhavik.roomDB;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.util.Log;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
+import com.bhavik.roomDB.DeviceInfo.DeviceInfoViewModel;
+
 import java.util.List;
 
 public class DBOperations {
@@ -18,12 +13,28 @@ public class DBOperations {
     public DBOperations(){
     }
 
-    public DBOperations(Context context,DeviceInfoViewModel deviceInfoViewModel) {
+    public DBOperations(Context context, DeviceInfoViewModel deviceInfoViewModel) {
         this.context = context;
         this.deviceInfoViewModel = deviceInfoViewModel;
     }
 
     public void insertDevice(DeviceInfoEntity deviceInfoEntity) {
         deviceInfoViewModel.addDevice(deviceInfoEntity);
+    }
+
+    public List<DeviceInfoEntity> getDevices() {
+        return deviceInfoViewModel.getAllRData();
+    }
+
+    public void updateDevice(String ip, String status, String strDate) {
+        deviceInfoViewModel.updateDevice(ip,status,strDate);
+    }
+
+    public List<DeviceInfoEntity> getDevicesPOSWITHKDS() {
+        return deviceInfoViewModel.getDevicesPOSWITHKDS();
+    }
+
+    public boolean isIpAvail(String ip) {
+        return deviceInfoViewModel.isIpAvail(ip);
     }
 }

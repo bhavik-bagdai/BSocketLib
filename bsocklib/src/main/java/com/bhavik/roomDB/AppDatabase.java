@@ -5,6 +5,10 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.bhavik.roomDB.DeviceInfo.DeviceInfoDao;
+import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
+import com.bhavik.roomDB.SyncMaster.SyncMasterDao;
+
 @Database(entities = {DeviceInfoEntity.class}, version = 1,exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     //define static instance
@@ -27,5 +31,6 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract DeviceInfoDao deviceInfoDAO();
+    public abstract SyncMasterDao syncMasterDao();
 
 }

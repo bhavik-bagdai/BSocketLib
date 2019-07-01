@@ -1,4 +1,4 @@
-package com.bhavik.roomDB;
+package com.bhavik.roomDB.DeviceInfo;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -30,4 +30,15 @@ public interface DeviceInfoDao {
     @Update
     void update(DeviceInfoEntity deviceInfoEntity);
 
+    @Query("SELECT * FROM DeviceInfoEntity")
+    List<DeviceInfoEntity> getAllR();
+
+    @Query("Update DeviceInfoEntity set DeviceInfoStatus = :status ,  = :total where orderItemID= :OrderItemID")
+    long update(String ip, String status, String dat);
+
+    @Query("SELECT * FROM DeviceInfoEntity WHERE deviceType=1 or deviceType=2")
+    List<DeviceInfoEntity> getDevicesPOSWITHKDS();
+
+    @Query("SELECT * FROM DeviceInfoEntity WHERE IP like :ip")
+    boolean isIpAvail(String ip);
 }

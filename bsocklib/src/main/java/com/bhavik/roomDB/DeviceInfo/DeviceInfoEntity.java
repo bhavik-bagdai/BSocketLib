@@ -1,4 +1,4 @@
-package com.bhavik.roomDB;
+package com.bhavik.roomDB.DeviceInfo;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -20,14 +20,36 @@ public class DeviceInfoEntity implements Serializable {
     String stationName;
     @ColumnInfo(name = "DeviceInfoStatus")
     String deviceinfoStatus;
+    @ColumnInfo(name = "LastSyncDate")
+    String lastSyncDate;
+    @ColumnInfo(name = "deviceType")
+    int deviceType;
 
-    public DeviceInfoEntity(long devid, String mac, String ip, String sync, String stationName, String deviceinfoStatus) {
+
+    public DeviceInfoEntity(long devid, String mac, String ip, String sync, String stationName, String deviceinfoStatus,int deviceType) {
         this.devid = devid;
         this.mac = mac;
         this.ip = ip;
         this.sync = sync;
         this.stationName = stationName;
         this.deviceinfoStatus = deviceinfoStatus;
+        this.deviceType = deviceType;
+    }
+
+    public String getLastSyncDate() {
+        return lastSyncDate;
+    }
+
+    public void setLastSyncDate(String lastSyncDate) {
+        this.lastSyncDate = lastSyncDate;
+    }
+
+    public int getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(int deviceType) {
+        this.deviceType = deviceType;
     }
 
     public long getDevid() {

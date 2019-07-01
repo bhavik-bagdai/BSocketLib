@@ -1,10 +1,12 @@
-package com.bhavik.roomDB;
+package com.bhavik.roomDB.DeviceInfo;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.bhavik.roomDB.AppDatabase;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -37,6 +39,24 @@ public class DeviceRepository {
         return lastinsertedid;
     }
 
+    public List<DeviceInfoEntity> getAllRData() {
+        List<DeviceInfoEntity> getalldevice= branchDao.getAllR();
+        return getalldevice;
+    }
+
+    public void DeviceUpdate(String ip, String status, String strDate) {
+        new DeviceUp().execute(ip,status,strDate);
+    }
+
+    public List<DeviceInfoEntity> getDevicesPOSWITHKDS() {
+        List<DeviceInfoEntity> getalldevice= branchDao.getDevicesPOSWITHKDS();
+        return getalldevice;
+    }
+
+    public boolean isIpAvail(String ip) {
+        return branchDao.isIpAvail(ip);
+    }
+
     //Async task to add note
     public class DeviceAddEx extends AsyncTask<DeviceInfoEntity, Long, Long> {
 
@@ -52,4 +72,21 @@ public class DeviceRepository {
             Log.e("BranchLogin----", "Done");
         }
     }
+
+    //Async task to add note
+    public class DeviceUp extends AsyncTask<String, Long, Long> {
+
+        @Override
+        protected Long doInBackground(String... strings) {
+            lastinsertedid = branchDao.update(strings[0],strings[1],strings[2]);
+            return lastinsertedid;
+        }
+
+        @Override
+        protected void onPostExecute(Long aVoid) {
+            super.onPostExecute(aVoid);
+            Log.e("BranchLogin----", "Done");
+        }
+    }
+
 }
