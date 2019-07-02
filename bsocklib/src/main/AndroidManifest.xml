@@ -18,5 +18,4 @@
             <action android:name="com.arvi.ActivityRecognition.RestartSensor"/>
         </intent-filter>
     </receiver>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>
