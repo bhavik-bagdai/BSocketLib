@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-public class GeneralMethods {
+public class GeneralMethodsSock {
     private Context context;
     DeviceInfoViewModel deviceInfoViewModel;
-    public GeneralMethods(Context context){
+    public GeneralMethodsSock(Context context){
         this.context = context;
         deviceInfoViewModel = ViewModelProviders.of((FragmentActivity) context).get(DeviceInfoViewModel.class);
     }
