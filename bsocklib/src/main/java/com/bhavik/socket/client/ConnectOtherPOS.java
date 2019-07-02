@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
-import com.bhavik.socket.Ginterface.I_WS_Connections;
+import com.bhavik.socket.Binterface.I_WS_Connections;
 
 import java.io.StringReader;
 import java.net.Socket;

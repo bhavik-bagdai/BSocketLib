@@ -6,7 +6,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.util.JsonReader;
 
-import com.bhavik.socket.Ginterface.I_WS_Connections;
+import com.bhavik.socket.Binterface.I_WS_Connections;
 import com.bhavik.socket.client.ConnectOtherPOS;
 import com.bhavik.socket.utils.Config;
 
@@ -18,7 +18,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Enumeration;
-import java.util.List;
 
 public class Server {
     Context context;

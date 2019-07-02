@@ -2,7 +2,7 @@ package com.bhavik.socket.client;
 
 import android.util.Log;
 
-import com.bhavik.socket.Ginterface.I_WS_Connections;
+import com.bhavik.socket.Binterface.I_WS_Connections;
 import com.bhavik.socket.utils.Config;
 import com.bhavik.socket.utils.Utils;
 

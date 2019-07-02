@@ -16,9 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- * Created by user on 12/17/2016.
- */
+
 public class SocketMethods {
     private Context context;
 

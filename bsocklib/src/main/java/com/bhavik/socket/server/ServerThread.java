@@ -1,6 +1,6 @@
 package com.bhavik.socket.server;
 
-import com.bhavik.socket.Ginterface.I_WS_Connections;
+import com.bhavik.socket.Binterface.I_WS_Connections;
 
 import java.io.BufferedReader;
 import java.io.IOException;

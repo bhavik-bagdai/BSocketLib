@@ -1,4 +1,4 @@
-package com.bhavik.socket.Ginterface;
+package com.bhavik.socket.Binterface;
 
 import java.io.Serializable;
 import java.net.Socket;
