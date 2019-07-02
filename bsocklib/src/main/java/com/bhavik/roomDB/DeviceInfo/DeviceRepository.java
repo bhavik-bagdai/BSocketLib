@@ -14,17 +14,23 @@ import java.util.concurrent.ExecutionException;
 public class DeviceRepository {
     DeviceInfoDao branchDao;
     long lastinsertedid;
-    private LiveData<List<DeviceInfoEntity>> mAllData;
+    private LiveData<List<DeviceInfoEntity>> mAllDataL;
+    private List<DeviceInfoEntity> mAllData;
 
     public DeviceRepository(@NonNull Application application) {
         AppDatabase appDatabase = AppDatabase.getDatabase(application);
         //init  Dao
         branchDao = appDatabase.deviceInfoDAO();
         mAllData = branchDao.getAll();
+        mAllDataL = branchDao.getAllL();
     }
 
-    public LiveData<List<DeviceInfoEntity>> getAllData() {
+    public List<DeviceInfoEntity> getAllData() {
         return mAllData;
+    }
+
+    public LiveData<List<DeviceInfoEntity>> getAllDataL() {
+        return mAllDataL;
     }
 
     //method to add note
@@ -37,11 +43,6 @@ public class DeviceRepository {
             e.printStackTrace();
         }
         return lastinsertedid;
-    }
-
-    public List<DeviceInfoEntity> getAllRData() {
-        List<DeviceInfoEntity> getalldevice= branchDao.getAllR();
-        return getalldevice;
     }
 
     public void DeviceUpdate(String ip, String status, String strDate) {

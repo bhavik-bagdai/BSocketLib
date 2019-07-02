@@ -9,24 +9,27 @@ import java.util.List;
 
 public class DeviceInfoViewModel extends AndroidViewModel {
     DeviceRepository deviceRepository;
-    LiveData<List<DeviceInfoEntity>> mAllData;
+    LiveData<List<DeviceInfoEntity>> mAllDataL;
+    List<DeviceInfoEntity> mAllData;
 
     public DeviceInfoViewModel(@NonNull Application application) {
         super(application);
         deviceRepository = new DeviceRepository(application);
+        mAllDataL = deviceRepository.getAllDataL();
         mAllData = deviceRepository.getAllData();
     }
-    public LiveData<List<DeviceInfoEntity>> getAllData() {
+    public List<DeviceInfoEntity> getAllData() {
         return mAllData;
+    }
+
+    public LiveData<List<DeviceInfoEntity>> getAllDataL() {
+        return mAllDataL;
     }
 
     public long addDevice(DeviceInfoEntity deviceInfoEntity) {
         return deviceRepository.DeviceAdd(deviceInfoEntity);
     }
 
-    public List<DeviceInfoEntity> getAllRData() {
-        return deviceRepository.getAllRData();
-    }
 
     public void updateDevice(String ip, String status, String strDate) {
         deviceRepository.DeviceUpdate(ip,status,strDate);

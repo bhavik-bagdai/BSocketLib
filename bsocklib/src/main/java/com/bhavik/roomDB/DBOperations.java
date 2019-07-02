@@ -18,12 +18,12 @@ public class DBOperations {
         this.deviceInfoViewModel = deviceInfoViewModel;
     }
 
-    public void insertDevice(DeviceInfoEntity deviceInfoEntity) {
-        deviceInfoViewModel.addDevice(deviceInfoEntity);
+    public long insertDevice(DeviceInfoEntity deviceInfoEntity) {
+        return deviceInfoViewModel.addDevice(deviceInfoEntity);
     }
 
     public List<DeviceInfoEntity> getDevices() {
-        return deviceInfoViewModel.getAllRData();
+        return deviceInfoViewModel.getAllData();
     }
 
     public void updateDevice(String ip, String status, String strDate) {

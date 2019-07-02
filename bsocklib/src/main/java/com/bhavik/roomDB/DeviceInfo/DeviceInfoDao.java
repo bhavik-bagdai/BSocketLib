@@ -16,8 +16,10 @@ public interface DeviceInfoDao {
     DeviceInfoEntity findAdminById(long  id);
 
     @Query("SELECT * FROM DeviceInfoEntity")
-    LiveData<List<DeviceInfoEntity>> getAll();
+    LiveData<List<DeviceInfoEntity>> getAllL();
 
+    @Query("SELECT * FROM DeviceInfoEntity")
+    List<DeviceInfoEntity> getAll();
     /*@Query("SELECT imageName FROM UserEntity")
     LiveData<List<UserEntity>> getAllImg();*/
 
@@ -29,9 +31,6 @@ public interface DeviceInfoDao {
 
     @Update
     void update(DeviceInfoEntity deviceInfoEntity);
-
-    @Query("SELECT * FROM DeviceInfoEntity")
-    List<DeviceInfoEntity> getAllR();
 
     @Query("Update DeviceInfoEntity set DeviceInfoStatus = :status, lastSyncDate = :dat  where IP = :ip")
     long update(String ip, String status, String dat);

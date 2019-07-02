@@ -28,10 +28,10 @@ public class GeneralMethods {
         this.context = context;
         deviceInfoViewModel = ViewModelProviders.of((FragmentActivity) context).get(DeviceInfoViewModel.class);
     }
-    public void InsertDevice(String Mac,String Ip,String sync, String StationName,String DeviceInfoStatus,int deviceType){
+    public long InsertDevice(String Mac,String Ip,String sync, String StationName,String DeviceInfoStatus,int deviceType){
         DBOperations dbOperations = new DBOperations(context,deviceInfoViewModel);
         DeviceInfoEntity deviceInfoEntity = new DeviceInfoEntity(0,Mac,Ip,sync,StationName,DeviceInfoStatus,deviceType);
-        dbOperations.insertDevice(deviceInfoEntity);
+        return dbOperations.insertDevice(deviceInfoEntity);
     }
 
     public List<DeviceInfoEntity> getDevices(){
