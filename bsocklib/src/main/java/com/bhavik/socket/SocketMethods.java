@@ -5,7 +5,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-import com.bhavik.BsockOper.GeneralMethods;
+import com.bhavik.BsockOper.GeneralMethodsSock;
 import com.bhavik.Sync.SyncMasterResponse;
 import com.bhavik.Sync.SyncResponse;
 import com.bhavik.Sync.code.SyncCode;
@@ -28,7 +28,7 @@ public class SocketMethods {
 
     public void connect(final String ip) {
         if (context != null) {
-            GeneralMethods gm = new GeneralMethods(context);
+            GeneralMethodsSock gm = new GeneralMethodsSock(context);
             if (ip != null) {
                 if (gm.isIpAvail(ip)) {
                     Calendar c = Calendar.getInstance();

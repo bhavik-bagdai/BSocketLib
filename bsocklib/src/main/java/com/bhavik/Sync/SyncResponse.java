@@ -3,7 +3,7 @@ package com.bhavik.Sync;
 import android.content.Context;
 import android.util.Log;
 
-import com.bhavik.BsockOper.GeneralMethods;
+import com.bhavik.BsockOper.GeneralMethodsSock;
 import com.bhavik.models.Response;
 import com.bhavik.models.SendData;
 import com.bhavik.models.SyncMaster;
@@ -44,7 +44,7 @@ public class SyncResponse {
      */
     public static void toJson(final Context context, int syncCode, String OrderInv, String Date, JsonObject jsonObject) {
 
-        GeneralMethods generalMethods = new GeneralMethods(context);
+        GeneralMethodsSock generalMethods = new GeneralMethodsSock(context);
                 //Sync Master
                 SyncMaster syncMaster = new SyncMaster(syncCode,null, OrderInv, Date);
                 generalMethods.insertSMasterForPOS(syncMaster);

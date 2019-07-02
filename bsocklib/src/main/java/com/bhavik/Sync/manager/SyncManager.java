@@ -4,7 +4,8 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.util.Log;
 
-import com.bhavik.BsockOper.GeneralMethods;
+import com.bhavik.BsockOper.GeneralMethodsSock;
+import com.bhavik.BsockOper.GeneralMethodsSock;
 import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
 import com.bhavik.socket.SocketMethods;
 import com.bhavik.socket.utils.Utils;
@@ -51,7 +52,7 @@ public class SyncManager {
             public void onFinish() {
                 Log.v("MyCountDownTimer", "Counter finished");
                 try {
-                    GeneralMethods gm = new GeneralMethods(context);
+                    GeneralMethodsSock gm = new GeneralMethodsSock(context);
                     Calendar c = Calendar.getInstance();
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.US);
                     String strDate = sdf.format(c.getTime());
@@ -96,7 +97,7 @@ public class SyncManager {
                                     for (int i = 0; i < Utils.ARRAY_CONNECTED_SOCKET.size(); i++) {
                                         try {
                                             if (Utils.ARRAY_CONNECTED_SOCKET.get(i).getInetAddress().getHostAddress().equals(ip)) {
-                                                GeneralMethods gm = new GeneralMethods(context);
+                                                GeneralMethodsSock gm = new GeneralMethodsSock(context);
                                                 Calendar c = Calendar.getInstance();
                                                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.US);
                                                 String strDate = sdf.format(c.getTime());

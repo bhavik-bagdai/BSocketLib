@@ -3,7 +3,8 @@ package com.bhavik.bsocklib;
 import android.content.Context;
 import android.util.Log;
 
-import com.bhavik.BsockOper.GeneralMethods;
+import com.bhavik.BsockOper.GeneralMethodsSock;
+import com.bhavik.BsockOper.GeneralMethodsSock;
 import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
 import com.bhavik.socket.SocketMethods;
 import com.bhavik.socket.utils.Utils;
@@ -50,7 +51,7 @@ public class TimerCounter {
             public void run() {
                 Log.i("in timer", "in timer ++++ " + (counter++));
                 try {
-                    GeneralMethods gm = new GeneralMethods(context);
+                    GeneralMethodsSock gm = new GeneralMethodsSock(context);
                     Calendar c = Calendar.getInstance();
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.US);
                     String strDate = sdf.format(c.getTime());
@@ -95,7 +96,7 @@ public class TimerCounter {
                                         for (int i = 0; i < Utils.ARRAY_CONNECTED_SOCKET.size(); i++) {
                                             try {
                                                 if (Utils.ARRAY_CONNECTED_SOCKET.get(i).getInetAddress().getHostAddress().equals(ip)) {
-                                                    GeneralMethods gm = new GeneralMethods(context);
+                                                    GeneralMethodsSock gm = new GeneralMethodsSock(context);
                                                     Calendar c = Calendar.getInstance();
                                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.US);
                                                     String strDate = sdf.format(c.getTime());
