@@ -225,7 +225,7 @@ public class SyncResponse {
         //sendMessageToAll(message,context);
     }
 
-    public Response fromJson(Context context, String message) {
+    public JsonElement fromJson(Context context, String message) {
 
         Response response = null;
         try {
@@ -262,6 +262,15 @@ public class SyncResponse {
             }
         }*/
 
-        return response;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonElement json = null;
+        if (response == null) {
+            return json;
+        }
+         else {
+            // Convert JSON to JsonElement, and later to String
+            json = gson.fromJson(message, JsonElement.class);
+            return json;
+        }
     }
 }
