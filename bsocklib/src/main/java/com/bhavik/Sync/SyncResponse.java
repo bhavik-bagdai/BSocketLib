@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.bhavik.BsockOper.GeneralMethodsSock;
 import com.bhavik.Sync.code.SyncCode;
-import com.bhavik.models.RemoveDevice;
-import com.bhavik.models.RemoveDeviceResp;
 import com.bhavik.models.Response;
 import com.bhavik.models.SendData;
 import com.bhavik.models.SyncMaster;
@@ -15,9 +13,11 @@ import com.bhavik.socket.utils.Config;
 import com.bhavik.socket.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+
+import org.json.JSONObject;
+
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -225,7 +225,7 @@ public class SyncResponse {
         //sendMessageToAll(message,context);
     }
 
-    public JsonElement fromJson(Context context, String message) {
+    public JSONObject fromJson(Context context, String message) {
 
         Response response = null;
         try {
@@ -263,13 +263,13 @@ public class SyncResponse {
         }*/
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonElement json = null;
+        JSONObject json = null;
         if (response == null) {
             return json;
         }
          else {
             // Convert JSON to JsonElement, and later to String
-            json = gson.fromJson(message, JsonElement.class);
+            json = gson.fromJson(message, JSONObject.class);
             return json;
         }
     }
