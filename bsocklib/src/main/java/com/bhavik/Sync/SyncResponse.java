@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
@@ -269,7 +270,12 @@ public class SyncResponse {
         }
          else {
             // Convert JSON to JsonElement, and later to String
-            json = gson.fromJson(message, JSONObject.class);
+            //json = gson.fromJson(message, JSONObject.class);
+            try {
+                json = new JSONObject(message);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return json;
         }
     }
