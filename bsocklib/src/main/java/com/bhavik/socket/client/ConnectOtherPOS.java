@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
+import com.bhavik.Sync.SyncMasterResponse;
 import com.bhavik.socket.Binterface.I_WS_Connections;
 
 import java.io.StringReader;
@@ -27,12 +28,6 @@ public class ConnectOtherPOS {
         }
     }
 
-    public String getOtherServer(String gateway, int ip) {
-        gateway = gateway.replace(".", "-");
-        String[] oldGateway = gateway.split("-");
-        String grubbrrDSN = oldGateway[0] + "." + oldGateway[1] + "." + oldGateway[2] + "." + ip;
-        return grubbrrDSN;
-    }
 
     public String intToIp(int i) {
         return (i & 0xFF) + "." +
@@ -72,8 +67,10 @@ public class ConnectOtherPOS {
                         myDatabaseManager.close();
                         // Send SyncMaster
 
+                        */
 
-                        SyncMasterResponse syncMasterResponse = new SyncMasterResponse(context, socket.getInetAddress().getHostAddress());
+
+                        /*SyncMasterResponse syncMasterResponse = new SyncMasterResponse(context, socket.getInetAddress().getHostAddress());
                         syncMasterResponse.sendSyncMaster();*/
                         socket.setKeepAlive(true);
 

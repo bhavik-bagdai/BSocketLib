@@ -18,7 +18,6 @@ public class ServerThread extends Thread {
         this._socket = _socket;
     }
 
-
     public void run() {
         try {
             while (_isConnected) {

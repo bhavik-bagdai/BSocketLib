@@ -29,6 +29,9 @@ public interface DeviceInfoDao {
     @Delete
     void delete(DeviceInfoEntity deviceInfoEntity);
 
+    @Query("Delete FROM DeviceInfoEntity WHERE IP like :ip")
+    void delete(String ip);
+
     @Update
     void update(DeviceInfoEntity deviceInfoEntity);
 

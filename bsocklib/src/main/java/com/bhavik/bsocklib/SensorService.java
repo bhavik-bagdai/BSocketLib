@@ -44,8 +44,6 @@ public class SensorService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Log.i(TAG, "onStartCommand()");
-
-
         tc.startTimer(counter);
         return START_STICKY;
     }
@@ -53,10 +51,7 @@ public class SensorService extends Service {
     @Override
     public void onDestroy() {
         Log.i(TAG, "serviceOnDestroy()");
-
         super.onDestroy();
-
-
         Intent broadcastIntent = new Intent("com.arvi.ActivityRecognition.RestartSensor");
         sendBroadcast(broadcastIntent);
         tc.stopTimerTask();
@@ -65,9 +60,6 @@ public class SensorService extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         Log.i(TAG, "serviceonTaskRemoved()");
-
-
-
         // workaround for kitkat: set an alarm service to trigger service again
         Intent intent = new Intent(getApplicationContext(), SensorService.class);
         PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);

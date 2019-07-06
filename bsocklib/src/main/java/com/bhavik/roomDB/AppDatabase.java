@@ -17,7 +17,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
     //method to get room database
     public static AppDatabase getDatabase(Context context) {
-
         if (mInstance == null)
             mInstance = Room.databaseBuilder(context.getApplicationContext(),
                     AppDatabase.class, "BSock")

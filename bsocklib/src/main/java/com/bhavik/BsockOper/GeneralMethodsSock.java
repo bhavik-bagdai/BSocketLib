@@ -1,18 +1,16 @@
 package com.bhavik.BsockOper;
 
-import android.arch.lifecycle.ViewModelProviders;
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.support.v4.app.FragmentActivity;
 import android.text.format.Formatter;
 import android.util.Log;
 
 import com.bhavik.models.SyncMaster;
 import com.bhavik.roomDB.DBOperations;
 import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
-import com.bhavik.roomDB.DeviceInfo.DeviceInfoViewModel;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -22,35 +20,40 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class GeneralMethodsSock {
-    private Context context;
-    DeviceInfoViewModel deviceInfoViewModel;
+    public Context context;
+    public static Context ctx;
     public GeneralMethodsSock(Context context){
         this.context = context;
-        deviceInfoViewModel = ViewModelProviders.of((FragmentActivity) context).get(DeviceInfoViewModel.class);
     }
-    public long InsertDevice(String Mac,String Ip,String sync, String StationName,String DeviceInfoStatus,int deviceType){
-        DBOperations dbOperations = new DBOperations(context,deviceInfoViewModel);
+
+    public long InsertDevice(String Mac, String Ip, String sync, String StationName, String DeviceInfoStatus, int deviceType){
+        DBOperations dbOperations = new DBOperations(context);
         DeviceInfoEntity deviceInfoEntity = new DeviceInfoEntity(0,Mac,Ip,sync,StationName,DeviceInfoStatus,deviceType);
-        return dbOperations.insertDevice(deviceInfoEntity);
+        return dbOperations.DeviceAdd(deviceInfoEntity);
     }
 
     public List<DeviceInfoEntity> getDevices(){
-        DBOperations dbOperations = new DBOperations(context,deviceInfoViewModel);
-        return dbOperations.getDevices();
+        DBOperations dbOperations = new DBOperations(context);
+        return dbOperations.getAllData();
+    }
+
+    public LiveData<List<DeviceInfoEntity>> getDevicesL(){
+        DBOperations dbOperations = new DBOperations(context);
+        return dbOperations.getAllDataL();
     }
 
     public void updateDevice(String ip, String status, String strDate) {
-        DBOperations dbOperations = new DBOperations(context,deviceInfoViewModel);
-        dbOperations.updateDevice(ip,status,strDate);
+        DBOperations dbOperations = new DBOperations(context);
+        dbOperations.DeviceUpdate(ip,status,strDate);
     }
 
     public List<DeviceInfoEntity> getDevicesPOSWITHKDS() {
-        DBOperations dbOperations = new DBOperations(context,deviceInfoViewModel);
+        DBOperations dbOperations = new DBOperations(context);
         return dbOperations.getDevicesPOSWITHKDS();
     }
 
     public boolean isIpAvail(String ip) {
-        DBOperations dbOperations = new DBOperations(context,deviceInfoViewModel);
+        DBOperations dbOperations = new DBOperations(context);
         return dbOperations.isIpAvail(ip);
     }
 

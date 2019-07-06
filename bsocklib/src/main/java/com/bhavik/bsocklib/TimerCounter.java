@@ -5,13 +5,18 @@ import android.util.Log;
 
 import com.bhavik.BsockOper.GeneralMethodsSock;
 import com.bhavik.BsockOper.GeneralMethodsSock;
+import com.bhavik.MyApplication;
 import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
+import com.bhavik.socket.Binterface.I_WS_Connections;
 import com.bhavik.socket.SocketMethods;
+import com.bhavik.socket.utils.Config;
 import com.bhavik.socket.utils.Utils;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -20,7 +25,9 @@ import java.util.TimerTask;
 
 public class TimerCounter {
     int counter;
-    Context context;
+    public Context context;
+    private MyApplication posApplication;
+
     public TimerCounter(Context ctx) {
         context = ctx;
     }
@@ -46,6 +53,11 @@ public class TimerCounter {
 
     // it sets the timer to print the counter every x seconds
     public void initializeTimerTask() {
+
+        posApplication = MyApplication.getInstance();
+        posApplication.getServer().setListner((I_WS_Connections) context);
+        posApplication.getServer().start();
+
         timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -59,6 +71,7 @@ public class TimerCounter {
 
                     for (DeviceInfoEntity deviceInfo : deviceInfoList) {
                         final String ip = deviceInfo.getIp();
+                        Log.d("ip",ip);
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -69,6 +82,7 @@ public class TimerCounter {
                                 boolean reachable = (returnVal == 0);
                                 isConnected = reachable;*/
                                     isConnected = InetAddress.getByName(ip).isReachable(1000);
+                                    Log.d("isConnected?" , isConnected+"");
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -80,6 +94,7 @@ public class TimerCounter {
                                         int returnVal = p1.waitFor();
                                         boolean reachable = (returnVal == 0);
                                         isConnected = reachable;
+                                        Log.d("isConnected?" , isConnected+"");
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     } catch (InterruptedException e) {
@@ -89,8 +104,8 @@ public class TimerCounter {
                                 }
                                 SocketMethods socketMethods = new SocketMethods(context);
                                 if (!isConnected) {
-                                    socketMethods.disConnect(ip);
                                     Log.d("Status", ip + " is Disconnected");
+                                    socketMethods.disConnect(ip);
                                 } else {
                                     if (Utils.ARRAY_CONNECTED_SOCKET != null) {
                                         for (int i = 0; i < Utils.ARRAY_CONNECTED_SOCKET.size(); i++) {
@@ -101,11 +116,31 @@ public class TimerCounter {
                                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.US);
                                                     String strDate = sdf.format(c.getTime());
                                                     gm.updateDevice(ip, "1", strDate);
+                                                    Log.d("updateStatus" , ip + "  1  " + strDate);
                                                     break;
                                                 }
                                             } catch (NullPointerException e) {
                                                 e.printStackTrace();
                                             }
+                                        }
+                                    } else {
+                                        try {
+                                            InetAddress serverAddr = InetAddress.getByName(ip);
+                                            // create a socket to make the connection with the server
+                                            final Socket socket = new Socket(serverAddr, Config.PORT);
+                                            socket.setKeepAlive(true);
+
+                                            if (Utils.ARRAY_CONNECTED_SOCKET == null)
+                                                Utils.ARRAY_CONNECTED_SOCKET = new ArrayList<Socket>();
+
+                                            for (int c = 0; c < Utils.ARRAY_CONNECTED_SOCKET.size(); c++) {
+                                                if (Utils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
+                                                    Utils.ARRAY_CONNECTED_SOCKET.remove(Utils.ARRAY_CONNECTED_SOCKET.get(c));
+                                                }
+                                            }
+                                            Utils.ARRAY_CONNECTED_SOCKET.add(socket);
+                                        } catch (Exception e){
+                                            Log.d("SocketExp",e.toString());
                                         }
                                     }
                                 }

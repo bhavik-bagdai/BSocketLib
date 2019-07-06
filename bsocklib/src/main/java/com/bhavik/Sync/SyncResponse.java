@@ -4,9 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.bhavik.BsockOper.GeneralMethodsSock;
+import com.bhavik.Sync.code.SyncCode;
+import com.bhavik.models.RemoveDevice;
+import com.bhavik.models.RemoveDeviceResp;
 import com.bhavik.models.Response;
 import com.bhavik.models.SendData;
 import com.bhavik.models.SyncMaster;
+import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
 import com.bhavik.socket.utils.Config;
 import com.bhavik.socket.utils.Utils;
 import com.google.gson.Gson;
@@ -20,6 +24,8 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SyncResponse {
@@ -112,7 +118,7 @@ public class SyncResponse {
         try {
           try {
                 if (Utils.ARRAY_CONNECTED_SOCKET != null) {
-                    for (int s = 0; s <= Utils.ARRAY_CONNECTED_SOCKET.size(); s++) {
+                    for (int s = 0; s < Utils.ARRAY_CONNECTED_SOCKET.size(); s++) {
                         Log.d("json", "sendMessage2");
                         if(!Utils.ARRAY_CONNECTED_SOCKET.get(s).isConnected())
                         {
@@ -135,7 +141,10 @@ public class SyncResponse {
                             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(Utils.ARRAY_CONNECTED_SOCKET.get(s).getOutputStream())), true);
                             if (out != null) {
                                 out.println(message);
-
+                                if(out.checkError()){
+                                    reconnectandretryP(message, context, socket.getInetAddress().toString());
+                                }
+                                out.flush();
                                 /*MyDatabaseManager myDatabaseManager = new MyDatabaseManager(context).open();
                                 AckOrder ackOrder = new AckOrder();
                                 String ip = String.valueOf(GUtils.ARRAY_CONNECTED_SOCKET.get(s).getInetAddress());
@@ -152,6 +161,8 @@ public class SyncResponse {
                             }
                         }
                     }
+                }else {
+                    reconnectandretry(message, context);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -161,6 +172,57 @@ public class SyncResponse {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private static void reconnectandretryP(String message, Context context,String ip) {
+            try {
+                InetAddress serverAddr = InetAddress.getByName(ip.substring(1));
+                // create a socket to make the connection with the server
+                final Socket socket = new Socket(serverAddr, Config.PORT);
+                socket.setKeepAlive(true);
+
+                if (Utils.ARRAY_CONNECTED_SOCKET == null)
+                    Utils.ARRAY_CONNECTED_SOCKET = new ArrayList<Socket>();
+
+                for (int c = 0; c < Utils.ARRAY_CONNECTED_SOCKET.size(); c++) {
+                    if (Utils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
+                        Utils.ARRAY_CONNECTED_SOCKET.remove(Utils.ARRAY_CONNECTED_SOCKET.get(c));
+                    }
+                }
+                Utils.ARRAY_CONNECTED_SOCKET.add(socket);
+            } catch (Exception e) {
+                Log.d("SocketExp", e.toString());
+            }
+
+        sendMessage(message,ip,context);
+    }
+
+    private static void reconnectandretry(String message, Context context) {
+        GeneralMethodsSock gm = new GeneralMethodsSock(context);
+        List<DeviceInfoEntity> deviceInfoList = gm.getDevicesPOSWITHKDS();
+
+        for (DeviceInfoEntity deviceInfo : deviceInfoList) {
+            final String ip = deviceInfo.getIp();
+            try {
+                InetAddress serverAddr = InetAddress.getByName(ip);
+                // create a socket to make the connection with the server
+                final Socket socket = new Socket(serverAddr, Config.PORT);
+                socket.setKeepAlive(true);
+
+                if (Utils.ARRAY_CONNECTED_SOCKET == null)
+                    Utils.ARRAY_CONNECTED_SOCKET = new ArrayList<Socket>();
+
+                for (int c = 0; c < Utils.ARRAY_CONNECTED_SOCKET.size(); c++) {
+                    if (Utils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
+                        Utils.ARRAY_CONNECTED_SOCKET.remove(Utils.ARRAY_CONNECTED_SOCKET.get(c));
+                    }
+                }
+                Utils.ARRAY_CONNECTED_SOCKET.add(socket);
+            } catch (Exception e) {
+                Log.d("SocketExp", e.toString());
+            }
+        }
+        //sendMessageToAll(message,context);
     }
 
     public JsonElement fromJson(Context context, String message) {
@@ -173,6 +235,33 @@ public class SyncResponse {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if(response.getSyncCode() == SyncCode.C_ADD_DEVICE_REQUEST){
+            return null;
+        }
+
+        /*if(response.getSyncCode() == SyncCode.C_REMOVE_DEVICE){
+            if(Utils.ARRAY_CONNECTED_SOCKET != null){
+                RemoveDeviceResp removeDeviceResp = new Gson().fromJson(message,RemoveDeviceResp.class);
+                RemoveDevice removeDevice = removeDeviceResp.getObject();
+
+                try{
+                    if(Utils.ARRAY_CONNECTED_SOCKET != null){
+                        for(int i = 0;i<Utils.ARRAY_CONNECTED_SOCKET.size();i++){
+                            if(removeDevice.getId().equals(Utils.ARRAY_CONNECTED_SOCKET.get(i).getInetAddress().getHostAddress())){
+                                Socket socket = Utils.ARRAY_CONNECTED_SOCKET.get(i);
+                                socket.close();
+                                Utils.ARRAY_CONNECTED_SOCKET.remove(socket);
+                                break;
+                            }
+                        }
+                    }
+                } catch (Exception e){
+
+                }
+            }
+        }*/
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement json = null;
         if (response == null) {

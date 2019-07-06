@@ -5,6 +5,8 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.util.JsonReader;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.bhavik.socket.Binterface.I_WS_Connections;
 import com.bhavik.socket.client.ConnectOtherPOS;
@@ -63,9 +65,10 @@ public class Server {
                 ServerSocket serverSocket = new ServerSocket(Config.PORT);
                 while (true) {
                     final Socket socket = serverSocket.accept();
+                    Log.d("Client Address",socket.getInetAddress().toString());
                     count++;
                     if (i_ws_connections != null) {
-                        //playBeep();
+                        playBeep();
                         i_ws_connections.onConnect(socket);
                     }
                     addThread(socket);

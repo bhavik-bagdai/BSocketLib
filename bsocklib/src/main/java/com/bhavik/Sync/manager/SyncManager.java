@@ -112,27 +112,11 @@ public class SyncManager {
                             }
                             }
                         }).start();
-
-                    /*
-                        if (socket != null && socket.getInetAddress() != null) {
-
-                                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(WsUtils.ARRAY_CONNECTED_SOCKET.get(s).getOutputStream())), true);
-                                if (out != null) {
-                                    out.flush();
-                                }else{
-                                    out.flush();
-                                }
-
-                        }
-                    */
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 startTimer();
-
             }
         };
     }
