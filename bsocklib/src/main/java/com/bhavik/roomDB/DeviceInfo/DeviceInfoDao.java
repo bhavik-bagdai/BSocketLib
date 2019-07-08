@@ -38,7 +38,8 @@ public interface DeviceInfoDao {
     @Query("Update DeviceInfoEntity set DeviceInfoStatus = :status, lastSyncDate = :dat  where IP = :ip")
     long update(String ip, String status, String dat);
 
-    @Query("SELECT * FROM DeviceInfoEntity WHERE deviceType=1 or deviceType=2")
+    //@Query("SELECT * FROM DeviceInfoEntity WHERE deviceType=1 or deviceType=2")
+    @Query("SELECT * FROM DeviceInfoEntity")
     List<DeviceInfoEntity> getDevicesPOSWITHKDS();
 
     @Query("SELECT * FROM DeviceInfoEntity WHERE IP like :ip")
