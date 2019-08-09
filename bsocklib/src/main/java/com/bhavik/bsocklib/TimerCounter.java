@@ -134,7 +134,7 @@ public class TimerCounter {
                                                 Utils.ARRAY_CONNECTED_SOCKET = new ArrayList<Socket>();
 
                                             for (int c = 0; c < Utils.ARRAY_CONNECTED_SOCKET.size(); c++) {
-                                                if (Utils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().equals(ip)) {
+                                                if (Utils.ARRAY_CONNECTED_SOCKET.get(c).getInetAddress().getHostAddress().contains(ip)) {
                                                     Utils.ARRAY_CONNECTED_SOCKET.remove(Utils.ARRAY_CONNECTED_SOCKET.get(c));
                                                 }
                                             }
