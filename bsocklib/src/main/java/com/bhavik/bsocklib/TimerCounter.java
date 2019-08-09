@@ -110,7 +110,7 @@ public class TimerCounter {
                                     if (Utils.ARRAY_CONNECTED_SOCKET != null) {
                                         for (int i = 0; i < Utils.ARRAY_CONNECTED_SOCKET.size(); i++) {
                                             try {
-                                                if (Utils.ARRAY_CONNECTED_SOCKET.get(i).getInetAddress().getHostAddress().equals(ip)) {
+                                                if (Utils.ARRAY_CONNECTED_SOCKET.get(i).getInetAddress().getHostAddress().contains(ip)) {
                                                     GeneralMethodsSock gm = new GeneralMethodsSock(context);
                                                     Calendar c = Calendar.getInstance();
                                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.US);
