@@ -8,6 +8,7 @@ import com.bhavik.Sync.code.SyncCode;
 import com.bhavik.models.Response;
 import com.bhavik.models.SendData;
 import com.bhavik.models.SyncMaster;
+import com.bhavik.models.pendinglist;
 import com.bhavik.roomDB.DeviceInfo.DeviceInfoEntity;
 import com.bhavik.socket.utils.Config;
 import com.bhavik.socket.utils.Utils;
@@ -33,6 +34,7 @@ public class SyncResponse {
 
     private static String[] params;
     private Context context;
+    static ArrayList<pendinglist> pendinglists = new ArrayList<>();
 
     /**
      * Sets params.
@@ -143,7 +145,8 @@ public class SyncResponse {
                             if (out != null) {
                                 out.println(message);
                                 if(out.checkError()){
-                                    reconnectandretryP(message, context, socket.getInetAddress().toString());
+                                    //reconnectandretryP(message, context, socket.getInetAddress().toString());
+                                    pendinglists.add(new pendinglist(socket.getInetAddress().toString(),0));
                                 }
                                 out.flush();
                                 /*MyDatabaseManager myDatabaseManager = new MyDatabaseManager(context).open();
@@ -161,6 +164,11 @@ public class SyncResponse {
                                 out.flush();*/
                             }
                         }
+                    }
+
+                    for(int i =0;i<pendinglists.size();i++)
+                    {
+                        reconnectandretryP(message, context, pendinglists.get(i).getIp());
                     }
                 }else {
                     reconnectandretry(message, context);
