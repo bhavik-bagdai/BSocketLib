@@ -27,4 +27,5 @@ public class MyApplication extends Application {
     public Server getServer(){
         return mServer;
     }
+
 }

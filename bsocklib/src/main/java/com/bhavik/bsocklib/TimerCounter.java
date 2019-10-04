@@ -61,7 +61,13 @@ public class TimerCounter {
         timerTask = new TimerTask() {
             @Override
             public void run() {
+                if(counter >= 10000)
+                    counter = 0;
+
                 Log.i("in timer", "in timer ++++ " + (counter++));
+
+
+
                 try {
                     GeneralMethodsSock gm = new GeneralMethodsSock(context);
                     Calendar c = Calendar.getInstance();
