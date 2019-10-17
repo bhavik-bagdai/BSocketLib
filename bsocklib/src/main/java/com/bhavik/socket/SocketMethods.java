@@ -35,6 +35,7 @@ public class SocketMethods {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.US);
                     String strDate = sdf.format(c.getTime());
                     gm.updateDevice(ip, "1", strDate);
+                    new ConnectionAsync().execute(context);
                 } else {
                     WifiManager wifiMgr = (WifiManager) context.getApplicationContext().getSystemService(context.WIFI_SERVICE);
                     WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
